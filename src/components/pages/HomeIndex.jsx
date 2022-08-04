@@ -1,15 +1,32 @@
+import toast, { Toaster } from "react-hot-toast";
+import Table from "@/components/atoms/DataTableExample";
+
+const notify = () => toast("Here is your toast.");
+const notifySuccess = () => toast.success("Here is your toast Success.");
+const notifyError = () => toast.error("Here is your toast Error.");
 const Home = () => {
   return (
     <div>
+      <div className="py-4 px-4 space-x-2">
+        <button className="btn btn-sm" onClick={notify}>
+          NOTIF
+        </button>
+        <button className="btn btn-sm btn-success" onClick={notifySuccess}>
+          SUCCESS
+        </button>
+        <button className="btn btn-sm btn-error" onClick={notifyError}>
+          ERROR
+        </button>
+        <Toaster />
+      </div>
+      <div className="py-4 px-4">
+        <Table />
+      </div>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Hello there</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
+            <h1 className="text-5xl font-bold">Hi Peeps</h1>
+            <p className="py-6">This is my first App made with React JS.</p>
             <button className="btn btn-primary">Get Started</button>
             <article className="prose lg:prose-xl py-20">
               <h1>Garlic bread with cheese: What the science tells us</h1>
