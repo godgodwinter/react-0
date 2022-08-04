@@ -1,13 +1,37 @@
 import toast, { Toaster } from "react-hot-toast";
 import Table from "@/components/atoms/DataTableExample";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "@/stores/counterSlice";
 
 const notify = () => toast("Here is your toast.");
 const notifySuccess = () => toast.success("Here is your toast Success.");
 const notifyError = () => toast.error("Here is your toast Error.");
 const Home = () => {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
   return (
     <div>
+      <div className="py-4 px-4 space-x-4">
+        <span>Redux Examples : </span>
+        <button
+          className="btn"
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <button
+          className="btn"
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+
+        <span>{count}</span>
+      </div>
       <div className="py-4 px-4 space-x-2">
+        <span>Toast Examples : </span>
         <button className="btn btn-sm" onClick={notify}>
           NOTIF
         </button>
