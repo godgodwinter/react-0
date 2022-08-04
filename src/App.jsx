@@ -2,12 +2,52 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import user from "@/data/user";
+import { Link, Outlet, ReactLocation, Router } from "@tanstack/react-location";
+
+// Set up a ReactLocation instance
+const location = new ReactLocation();
+const dataUser = user.getAll();
+
 function App() {
   const [count, setCount] = useState(0);
-  const dataUser = user.getAll();
 
   return (
-    <div className="App">
+    <Router
+      location={location}
+      routes={[
+        { path: "/", element: <Index /> },
+        { path: "posts", element: <Posts /> },
+      ]}
+    >
+      <div>
+        <Link
+          to="/"
+          getActiveProps={getActiveProps}
+          activeOptions={{ exact: true }}
+        >
+          Home
+        </Link>{" "}
+        <Link to="posts" getActiveProps={getActiveProps}>
+          Posts
+        </Link>
+      </div>
+      <hr />
+      <Outlet /> {/* Start rendering router matches */}
+    </Router>
+  );
+}
+
+function Index() {
+  return (
+    <div>
+      <h3>Welcome Home!</h3>
+    </div>
+  );
+}
+
+function Posts() {
+  return (
+    <div>
       <div>
         {dataUser.map((item) => (
           <div key={item.id}>
@@ -21,6 +61,14 @@ function App() {
       </div>
     </div>
   );
+}
+
+function getActiveProps() {
+  return {
+    style: {
+      fontWeight: "bold",
+    },
+  };
 }
 
 export default App;
