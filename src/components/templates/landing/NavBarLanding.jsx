@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-location";
+import { Link, MatchRoute } from "@tanstack/react-location";
 // Set up a ReactLocation instance
 const NavBar = () => {
   return (
@@ -33,7 +33,21 @@ const NavBar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="posts">Posts</Link>
+                  <Link to="posts">
+                    {" "}
+                    posts{" "}
+                    <MatchRoute to="posts" pending>
+                      <Spinner />
+                    </MatchRoute>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/admin/pages/dashboard"
+                    activeOptions={{ exact: true }}
+                  >
+                    Admin
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -47,7 +61,21 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="posts">Posts</Link>
+                <Link to="posts">
+                  {" "}
+                  posts{" "}
+                  <MatchRoute to="posts" pending>
+                    <Spinner />
+                  </MatchRoute>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/pages/dashboard"
+                  activeOptions={{ exact: true }}
+                >
+                  Admin
+                </Link>
               </li>
             </ul>
           </div>
@@ -58,6 +86,10 @@ const NavBar = () => {
       </div>
     </>
   );
+};
+
+const Spinner = () => {
+  return <>Loading. . . </>;
 };
 
 // function getActiveProps() {
