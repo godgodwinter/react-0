@@ -68,7 +68,7 @@ function App() {
         </div>
         <hr />
         <div className="min-h-screen">
-          <div className="px-4 py-4">
+          <div className="px-4 py-4 border-b-2 w-full">
             <Breadcrumbs />
           </div>
           <Outlet />

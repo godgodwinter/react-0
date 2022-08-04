@@ -80,7 +80,7 @@ const NavBar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <a className="btn">Get started</a>
+            <a className="btn">"react": "^18.2.0"</a>
           </div>
         </div>
       </div>
