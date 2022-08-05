@@ -10,9 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       {" "}
-      <div data-theme="cupcake" className="min-h-screen">
-        <App />
-      </div>
+      <App />
     </Provider>
   </React.StrictMode>
 );

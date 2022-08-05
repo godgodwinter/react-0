@@ -7,6 +7,9 @@ import {
   Router,
   useMatches,
 } from "@tanstack/react-location";
+
+import { useSelector, useDispatch } from "react-redux";
+
 import NavBar from "@/components/templates/landing/NavBarLanding";
 import Footer from "@/components/templates/FooterOne";
 
@@ -16,65 +19,68 @@ import Posts from "@/components/pages/PostsIndex";
 const location = new ReactLocation();
 
 function App() {
+  const thema = useSelector((state) => state.thema.value);
   return (
     <>
-      <Router
-        location={location}
-        routes={[
-          {
-            path: "/",
-            element: <Home />,
-            meta: {
-              breadcrumb: () => "Home",
-            },
-          },
-          {
-            path: "posts",
-            element: <Posts />,
-            pendingElement: async () => <div>Taking a long time...</div>,
-            pendingMs: 1000 * 5, // 2 seconds
-            pendingMinMs: 5000, // If it's shown, ensure the pending element is rendered for at least 500ms
-            meta: {
-              breadcrumb: () => "Posts",
-            },
-          },
-          {
-            path: "/admin/pages/dashboard",
-            element: <AdminLayout />,
-            meta: {
-              breadcrumb: () => "Admin",
-            },
-            children: [
-              {
-                path: "/",
-                element: "Ini dashboard",
-                meta: {
-                  breadcrumb: () => " Dashboard",
-                },
+      <div data-theme={thema} className="min-h-screen">
+        <Router
+          location={location}
+          routes={[
+            {
+              path: "/",
+              element: <Home />,
+              meta: {
+                breadcrumb: () => "Home",
               },
-              {
-                path: ":postId",
-                element: "Ini Child",
-                meta: {
-                  breadcrumb: () => " Child",
-                },
+            },
+            {
+              path: "posts",
+              element: <Posts />,
+              pendingElement: async () => <div>Taking a long time...</div>,
+              pendingMs: 1000 * 5, // 2 seconds
+              pendingMinMs: 5000, // If it's shown, ensure the pending element is rendered for at least 500ms
+              meta: {
+                breadcrumb: () => "Posts",
               },
-            ],
-          },
-        ]}
-      >
-        <div>
-          <NavBar />
-        </div>
-        <hr />
-        <div className="min-h-screen">
-          <div className="px-4 py-4 border-b-2 w-full flex justify-end">
-            <Breadcrumbs />
+            },
+            {
+              path: "/admin/pages/dashboard",
+              element: <AdminLayout />,
+              meta: {
+                breadcrumb: () => "Admin",
+              },
+              children: [
+                {
+                  path: "/",
+                  element: "Ini dashboard",
+                  meta: {
+                    breadcrumb: () => " Dashboard",
+                  },
+                },
+                {
+                  path: ":postId",
+                  element: "Ini Child",
+                  meta: {
+                    breadcrumb: () => " Child",
+                  },
+                },
+              ],
+            },
+          ]}
+        >
+          <div>
+            <NavBar />
           </div>
-          <Outlet />
-        </div>
-        <Footer />
-      </Router>
+          <hr />
+          <div className="min-h-screen">
+            <div className="px-4 py-4 border-b-2 w-full flex justify-end">
+              <Breadcrumbs />
+            </div>
+            <Outlet />
+          </div>
+          <Footer />
+        </Router>
+      </div>
     </>
   );
 }

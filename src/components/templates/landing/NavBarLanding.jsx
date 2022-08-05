@@ -1,6 +1,14 @@
 import { Link, MatchRoute } from "@tanstack/react-location";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeToCupcake,
+  changeToWinter,
+  changeToLuxury,
+} from "@/stores/themesSlice";
 // Set up a ReactLocation instance
 const NavBar = () => {
+  const thema = useSelector((state) => state.thema.value);
+  const dispatch = useDispatch();
   return (
     <>
       <div>
@@ -54,7 +62,7 @@ const NavBar = () => {
             <a className="btn btn-ghost normal-case text-xl">BABENG-DEV</a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal p-0">
+            <ul className="menu menu-horizontal p-0 space-x-2">
               <li>
                 <Link to="/" activeOptions={{ exact: true }}>
                   Home
@@ -76,6 +84,33 @@ const NavBar = () => {
                 >
                   Admin
                 </Link>
+              </li>
+              <li>
+                <button
+                  className="btn btn-outline btn-success"
+                  onClick={() => dispatch(changeToCupcake())}
+                >
+                  Cupcake
+                </button>
+              </li>
+              <li>
+                <button
+                  className="btn btn-outline btn-primary"
+                  onClick={() => dispatch(changeToWinter())}
+                >
+                  Winter
+                </button>
+              </li>
+              <li>
+                <button
+                  className="btn btn-outline btn-primary"
+                  onClick={() => dispatch(changeToLuxury())}
+                >
+                  Luxury
+                </button>
+              </li>
+              <li className="flex shadow-sm border-slate-300 rounded-lg border-2 px-2 mx-4 capitalize">
+                <p>Thema Active : {thema}</p>
               </li>
             </ul>
           </div>
