@@ -2,6 +2,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Table from "@/components/atoms/DataTableExample";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "@/stores/counterSlice";
+import { useState, useEffect } from "react";
 
 const notify = () => toast("Here is your toast.");
 const notifySuccess = () => toast.success("Here is your toast Success.");
@@ -9,6 +10,16 @@ const notifyError = () => toast.error("Here is your toast Error.");
 const Home = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
+  const [jmlClick, setJmlClick] = useState(0);
+  const handleClick = () => {
+    setJmlClick(jmlClick + 1);
+  };
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${jmlClick} times`;
+  });
+
   return (
     <div>
       <div className="py-4 px-4 space-x-4">
@@ -42,6 +53,16 @@ const Home = () => {
           ERROR
         </button>
         <Toaster />
+      </div>
+
+      <div className="py-4 px-4">
+        <p>Latihan useState & use Effect = clicked : {jmlClick} x</p>
+
+        <div>
+          <button className="btn" onClick={handleClick}>
+            KLik
+          </button>
+        </div>
       </div>
       <div className="py-4 px-4">
         <Table />

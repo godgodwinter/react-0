@@ -57,6 +57,33 @@ const NavBar = () => {
                     Admin
                   </Link>
                 </li>
+                <li>
+                  <button
+                    className="btn btn-outline btn-success"
+                    onClick={() => dispatch(changeToCupcake())}
+                  >
+                    Cupcake
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="btn btn-outline btn-primary"
+                    onClick={() => dispatch(changeToWinter())}
+                  >
+                    Winter
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="btn btn-outline btn-primary"
+                    onClick={() => dispatch(changeToLuxury())}
+                  >
+                    Luxury
+                  </button>
+                </li>
+                <li className="flex shadow-sm border-slate-300 rounded-lg border-2 px-2 mx-4 capitalize">
+                  <p>Thema Active : {thema}</p>
+                </li>
               </ul>
             </div>
             <a className="btn btn-ghost normal-case text-xl">BABENG-DEV</a>
