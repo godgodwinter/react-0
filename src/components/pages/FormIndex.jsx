@@ -1,5 +1,27 @@
-import { Formik } from "formik";
-const Form = () => {
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+
+    .min(2, "Too Short!")
+
+    .max(50, "Too Long!")
+
+    .required("Required"),
+
+  lastName: Yup.string()
+
+    .min(2, "Too Short!")
+
+    .max(50, "Too Long!")
+
+    .required("Required"),
+
+  email: Yup.string().email("Invalid email").required("Required"),
+});
+
+const FormIndex = () => {
   return (
     <div>
       {" "}
@@ -7,80 +29,62 @@ const Form = () => {
         <h1 className="text-lg font-bold shadow-sm">Anywhere in your app!</h1>
 
         <Formik
-          initialValues={{ email: "", password: "" }}
-          validate={(values) => {
-            const errors = {};
+          initialValues={{
+            firstName: "",
 
-            if (!values.email) {
-              errors.email = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
+            lastName: "",
 
-            if (!values.password) {
-              errors.password = "Required";
-            }
-
-            return errors;
+            email: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
+          validationSchema={SignupSchema}
+          onSubmit={(values) => {
+            // same shape as initial values
 
-              setSubmitting(false);
-            }, 400);
+            console.log(values);
           }}
         >
-          {({
-            values,
+          {({ errors, touched }) => (
+            <Form className=" space-x-2 space-y-2">
+              <div className="px-4 space-x-2">
+                <label>First Name : </label>
+                <Field
+                  name="firstName"
+                  className="input input-bordered w-full max-w-lg"
+                />
 
-            errors,
+                {errors.firstName && touched.firstName ? (
+                  <div className="text-red-600 text-sm">{errors.firstName}</div>
+                ) : null}
+              </div>
 
-            touched,
+              <div className="px-4 space-x-2">
+                <label>Last Name : </label>
+                <Field
+                  name="lastName"
+                  className="input input-bordered w-full max-w-lg"
+                />
 
-            handleChange,
+                {errors.lastName && touched.lastName ? (
+                  <div className="text-red-600 text-sm">{errors.lastName}</div>
+                ) : null}
+              </div>
 
-            handleBlur,
+              <div className="px-4 space-x-2">
+                <label>Email : </label>
+                <Field
+                  name="email"
+                  type="email"
+                  className="input input-bordered w-full max-w-lg"
+                />
 
-            handleSubmit,
-
-            isSubmitting,
-
-            /* and other goodies */
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <input
-                className="input input-bordered w-full max-w-lg"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-
-              {errors.email && touched.email && errors.email}
-
-              <input
-                className="input input-bordered w-full max-w-lg"
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-
-              {errors.password && touched.password && errors.password}
-
-              <button
-                className="btn btn-sm btn-primary"
-                type="submit"
-                disabled={isSubmitting}
-              >
+                {errors.email && touched.email ? (
+                  <div className="text-red-600 text-sm">{errors.email}</div>
+                ) : null}
+              </div>
+              <button className="btn btn-sm btn-primary" type="submit">
                 Submit
               </button>
-            </form>
+            </Form>
           )}
         </Formik>
       </div>
@@ -88,4 +92,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormIndex;

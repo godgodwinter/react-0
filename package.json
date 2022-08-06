@@ -19,7 +19,8 @@
     "react-hot-toast": "^2.3.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",
