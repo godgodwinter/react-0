@@ -14,6 +14,7 @@ import NavBar from "@/components/templates/landing/NavBarLanding";
 import Footer from "@/components/templates/FooterOne";
 
 import Home from "@/components/pages/HomeIndex";
+import Form from "@/components/pages/FormIndex";
 import Posts from "@/components/pages/PostsIndex";
 
 const location = new ReactLocation();
@@ -31,6 +32,13 @@ function App() {
               element: <Home />,
               meta: {
                 breadcrumb: () => "Home",
+              },
+            },
+            {
+              path: "/examples/form",
+              element: <Form />,
+              meta: {
+                breadcrumb: () => "Form",
               },
             },
             {

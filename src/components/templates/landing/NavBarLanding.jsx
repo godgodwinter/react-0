@@ -96,6 +96,11 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/examples/form" activeOptions={{ exact: true }}>
+                  Form
+                </Link>
+              </li>
+              <li>
                 <Link to="posts">
                   {" "}
                   posts{" "}
