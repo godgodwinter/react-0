@@ -5,10 +5,68 @@ import {
   changeToWinter,
   changeToLuxury,
 } from "@/stores/themesSlice";
+
+const LInk = [
+  {
+    id: 1,
+    name: "home",
+    url: "/",
+    label: "home",
+    icon: "home",
+    active: true,
+    tipe: "default",
+  },
+  {
+    id: 2,
+    name: "form",
+    url: "/examples/form",
+    label: "form",
+    icon: "form",
+    active: true,
+    tipe: "lazy",
+  },
+  {
+    id: 3,
+    name: "posts",
+    url: "/posts",
+    label: "posts",
+    icon: "posts",
+    active: true,
+    tipe: "default",
+  },
+  {
+    id: 4,
+    name: "admin",
+    url: "/admin/pages/dashboard",
+    label: "admin",
+    icon: "admin",
+    active: true,
+    tipe: "default",
+  },
+];
+
 // Set up a ReactLocation instance
 const NavBar = () => {
   const thema = useSelector((state) => state.thema.value);
   const dispatch = useDispatch();
+
+  const Theme = [
+    {
+      label: "cupcake",
+      fn: () => dispatch(changeToCupcake()),
+      style: "btn btn-outline btn-success",
+    },
+    {
+      label: "Winter",
+      fn: () => dispatch(changeToWinter()),
+      style: "btn btn-outline btn-primary",
+    },
+    {
+      label: "Luxury",
+      fn: () => dispatch(changeToLuxury()),
+      style: "btn btn-outline btn-warning",
+    },
+  ];
   return (
     <>
       <div>
@@ -35,52 +93,22 @@ const NavBar = () => {
                 tabIndex="0"
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <li>
-                  <Link to="/" activeOptions={{ exact: true }}>
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to="posts">
-                    {" "}
-                    posts{" "}
-                    <MatchRoute to="posts" pending>
-                      <Spinner />
-                    </MatchRoute>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/pages/dashboard"
-                    activeOptions={{ exact: true }}
-                  >
-                    Admin
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    className="btn btn-outline btn-success"
-                    onClick={() => dispatch(changeToCupcake())}
-                  >
-                    Cupcake
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="btn btn-outline btn-primary"
-                    onClick={() => dispatch(changeToWinter())}
-                  >
-                    Winter
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="btn btn-outline btn-primary"
-                    onClick={() => dispatch(changeToLuxury())}
-                  >
-                    Luxury
-                  </button>
-                </li>
+                {LInk.map((item) => (
+                  <li key={item.id}>
+                    <LinkButton {...item} />
+                  </li>
+                ))}
+                {Theme.map((item) => (
+                  <li key={item.label}>
+                    <button
+                      onClick={item.fn}
+                      className={item.style}
+                      type="button"
+                    >
+                      {item.label}
+                    </button>
+                  </li>
+                ))}
                 <li className="flex shadow-sm border-slate-300 rounded-lg border-2 px-2 mx-4 capitalize">
                   <p>Thema Active : {thema}</p>
                 </li>
@@ -90,57 +118,22 @@ const NavBar = () => {
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal p-0 space-x-2">
-              <li>
-                <Link to="/" activeOptions={{ exact: true }}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/examples/form" activeOptions={{ exact: true }}>
-                  Form
-                </Link>
-              </li>
-              <li>
-                <Link to="posts">
-                  {" "}
-                  posts{" "}
-                  <MatchRoute to="posts" pending>
-                    <Spinner />
-                  </MatchRoute>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/pages/dashboard"
-                  activeOptions={{ exact: true }}
-                >
-                  Admin
-                </Link>
-              </li>
-              <li>
-                <button
-                  className="btn btn-outline btn-success"
-                  onClick={() => dispatch(changeToCupcake())}
-                >
-                  Cupcake
-                </button>
-              </li>
-              <li>
-                <button
-                  className="btn btn-outline btn-primary"
-                  onClick={() => dispatch(changeToWinter())}
-                >
-                  Winter
-                </button>
-              </li>
-              <li>
-                <button
-                  className="btn btn-outline btn-primary"
-                  onClick={() => dispatch(changeToLuxury())}
-                >
-                  Luxury
-                </button>
-              </li>
+              {LInk.map((item) => (
+                <li key={item.id}>
+                  <LinkButton {...item} />
+                </li>
+              ))}
+              {Theme.map((item) => (
+                <li key={item.label}>
+                  <button
+                    onClick={item.fn}
+                    className={item.style}
+                    type="button"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
               <li className="flex shadow-sm border-slate-300 rounded-lg border-2 px-2 mx-4 capitalize">
                 <p>Thema Active : {thema}</p>
               </li>
@@ -151,6 +144,41 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+    </>
+  );
+};
+
+const LinkButton = (props) => {
+  if (props.tipe === "default") {
+    return <NavDefault {...props} />;
+  }
+  if (props.tipe === "lazy") {
+    return <NavLazy {...props} />;
+  }
+};
+
+const NavDefault = (props) => {
+  return (
+    <>
+      <Link
+        to={props.url}
+        activeOptions={{ exact: props.active }}
+        className="capitalize"
+      >
+        {props.label}
+      </Link>
+    </>
+  );
+};
+const NavLazy = (props) => {
+  return (
+    <>
+      <Link to={props.url} className="capitalize">
+        {props.label}
+        <MatchRoute to={props.url} pending>
+          <Spinner />
+        </MatchRoute>
+      </Link>
     </>
   );
 };
