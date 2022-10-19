@@ -19,10 +19,22 @@ const Home = () => {
     // Update the document title using the browser API
     document.title = `You clicked ${jmlClick} times`;
   });
+  const startDate = new Date().toLocaleTimeString();
+  
+  const[sec, setSec] = useState(0);
+
+
+  useEffect(() => {
+  //  setTimeout(() => setSec((sec) => sec + 1), 1000);
+  setTimeout(() => setSec(startDate), 1000);
+    return () => {};
+  }, [sec]);  //dependency, if end changes remount
 
   return (
     <div>
       <div className="py-4 px-4 space-x-4">
+<div className="py-4 px-4">Date Now : {sec}</div>
+
         <span>Redux Examples : </span>
         <button
           className="btn"
